@@ -1,7 +1,6 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  */
-
 package org.hyperledger.fabric.samples;
 
 import org.hyperledger.fabric.contract.annotation.DataType;
@@ -17,52 +16,19 @@ public final class BasilLeg {
     @Property()
     private String gpsPosition;
 
-    @Property()
-    private Basil basil; // Reference to the Basil state at this leg
+    // REMOVED 'Basil basil' reference to fix the Infinite Loop crash
 
-    // Default constructor
-    public BasilLeg() {
-        this.timestamp = 0;
-        this.gpsPosition = "";
-        this.basil = null;
-    }
+    public BasilLeg() {}
 
     public BasilLeg(@JsonProperty("timestamp") final long timestamp,
-                    @JsonProperty("gpsPosition") final String gpsPosition,
-                    @JsonProperty("basil") final Basil basil) {
+                    @JsonProperty("gpsPosition") final String gpsPosition) {
         this.timestamp = timestamp;
         this.gpsPosition = gpsPosition;
-        this.basil = basil;
     }
 
-    public long getTimestamp() {
-        return timestamp;
-    }
+    public long getTimestamp() { return timestamp; }
+    public String getGpsPosition() { return gpsPosition; }
 
-    public String getGpsPosition() {
-        return gpsPosition;
-    }
-
-    public Basil getBasil() {
-        return basil;
-    }
-
-    public void setTimestamp(long timestamp) { 
-        this.timestamp = timestamp; 
-    }
-    public void setGpsPosition(String gpsPosition) { 
-        this.gpsPosition = gpsPosition; 
-    }
-    public void setBasil(Basil basil) { 
-        this.basil = basil; 
-    }
-
-    @Override
-    public String toString() {
-        return "BasilLeg{" +
-                "timestamp=" + timestamp +
-                ", gpsPosition='" + gpsPosition + '\'' +
-                ", basil=" + basil +
-                '}';
-    }
+    public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
+    public void setGpsPosition(String gpsPosition) { this.gpsPosition = gpsPosition; }
 }

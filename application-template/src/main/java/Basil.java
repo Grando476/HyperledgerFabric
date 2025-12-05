@@ -1,20 +1,21 @@
+// Simplified Client Side Basil
 public class Basil {
     private String qr;
     private String extraInfo;
     private String owner;
+    private BasilLeg currentLeg; // Matches the chaincode structure
 
-    public Basil(String qr, String extraInfo, String owner) {
-        this.qr = qr;
-        this.extraInfo = extraInfo;
-        this.owner = owner;
-    }
-
-    public String getQr() { return qr; }
-    public String getExtraInfo() { return extraInfo; }
-    public String getOwner() { return owner; }
+    // ... Constructor ...
 
     @Override
     public String toString() {
-        return "Basil [QR=" + qr + ", Info=" + extraInfo + ", Owner=" + owner + "]";
+        String gps = (currentLeg != null) ? currentLeg.getGpsPosition() : "None";
+        return "Basil [QR=" + qr + ", Info=" + extraInfo + ", Owner=" + owner + ", GPS=" + gps + "]";
+    }
+    
+    // Inner class for the Leg (Client Side)
+    public static class BasilLeg {
+        private String gpsPosition;
+        public String getGpsPosition() { return gpsPosition; }
     }
 }

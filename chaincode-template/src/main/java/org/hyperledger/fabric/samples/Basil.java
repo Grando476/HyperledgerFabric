@@ -1,7 +1,6 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  */
-
 package org.hyperledger.fabric.samples;
 
 import org.hyperledger.fabric.contract.annotation.DataType;
@@ -12,55 +11,41 @@ import com.owlike.genson.annotation.JsonProperty;
 public final class Basil {
 
     @Property()
-    private String qr; // The unique ID (QR code)
+    private String qr;
 
     @Property()
-    private String extraInfo; // Info like temperature, humidity, etc.
+    private String extraInfo;
 
     @Property()
-    private String owner; // The MSP ID of the owning organization
+    private String owner;
 
-    // Default constructor required for deserialization
-    public Basil() {
+    // --- NEW: Basil holds the current Leg ---
+    @Property()
+    private BasilLeg currentLeg;
 
-    }
+    public Basil() {}
 
     public Basil(@JsonProperty("qr") final String qr, 
                  @JsonProperty("extraInfo") final String extraInfo,
-                 @JsonProperty("owner") final String owner) {
+                 @JsonProperty("owner") final String owner,
+                 @JsonProperty("currentLeg") final BasilLeg currentLeg) {
         this.qr = qr;
         this.extraInfo = extraInfo;
         this.owner = owner;
+        this.currentLeg = currentLeg;
     }
+
+    // --- GETTERS ---
+    public String getQr() { return qr; }
+    public String getExtraInfo() { return extraInfo; }
+    public String getOwner() { return owner; }
     
-    public String getQr() {
-        return qr;
-    }
+    // This gets saved to the Ledger!
+    public BasilLeg getCurrentLeg() { return currentLeg; }
 
-    public String getExtraInfo() {
-        return extraInfo;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setQr(String qr) { 
-        this.qr = qr; 
-    }
-    public void setExtraInfo(String extraInfo) { 
-        this.extraInfo = extraInfo; 
-    }
-    public void setOwner(String owner) { 
-        this.owner = owner; 
-    }
-
-    @Override
-    public String toString() {
-        return "Basil{" +
-                "qr='" + qr + '\'' +
-                ", extraInfo='" + extraInfo + '\'' +
-                ", owner='" + owner + '\'' +
-                '}';
-    }
+    // --- SETTERS ---
+    public void setQr(String qr) { this.qr = qr; }
+    public void setExtraInfo(String extraInfo) { this.extraInfo = extraInfo; }
+    public void setOwner(String owner) { this.owner = owner; }
+    public void setCurrentLeg(BasilLeg currentLeg) { this.currentLeg = currentLeg; }
 }
